@@ -7,7 +7,7 @@ from Alloc import *                                                      # impor
 
   
 def main():                                                              # main function
-    os.system("tasklist > Tasks-clu1.idd")                                # tasklist into Task-clu2.idd
+    os.system("tasklist > Tasks-clu1.idd")                               # tasklist into Task-clu2.idd
     if getattr(sys,"frozen", False):                                     
         sci = os.path.dirname(sys.executable)                            # get path when app is executable
     else:
@@ -17,29 +17,29 @@ def main():                                                              # main 
     
     taskstring = ""
     try:
-        with open("Tasks-clu1.idd")as filetask:
+        with open("Tasks-clu1.idd")as filetask:                          # read tasks file
             taskstring = filetask.read()
     except:
         print("\n+---------------------------------+\n| Cannot connect to the input data document\n+---------------------------------+\n")
     
-    print("separating words to lines ...")
-    lines = list(taskstring.split("K\n"))
+    print("separating words to lines ...")                               
+    lines = list(taskstring.split("K\n"))                                # split lines
     print("cleaning tasks ...")
-    vm, task = lines[0].split("=\n")
+    vm, task = lines[0].split("=\n")                                     # split tasks
     lines[0] = task
     print("call functions ...")
 
-    lines1 = completeWord(lines)
-    lines2 = finderonespace(lines1)
+    lines1 = completeWord(lines)                                         # use complete-word
+    lines2 = finderonespace(lines1)                                      # use finder-one-space
 
-    lines3_1,lines3_2 = Division_into_Two_Part(lines2)
+    lines3_1,lines3_2 = Division_into_Two_Part(lines2)                   # use divid-into-two-parts
 
     print("cleaning data lines4_1 ...")
     lines4_1 = []
     lines4_2 = []
     bull = False
-    for line in lines3_1:
-        vidx = 0
+    for line in lines3_1:                                                # left side tasks
+        vidx = 0                                                       
         il = list(line)
         for let in line:
             
@@ -62,7 +62,7 @@ def main():                                                              # main 
     print("cleaning data lines4_2 ...")
     bull = False 
     
-    for line in lines3_2:
+    for line in lines3_2:                                                # right side tasks
         vidx = 0
         il = list(line)
         for let in line:
@@ -85,7 +85,7 @@ def main():                                                              # main 
         bull = False
     
     
-    lines4_1 = wordS(lines4_1)
+    lines4_1 = wordS(lines4_1)                                             # use word(s) function
     
     if(do): 
         print("fixing-1")
@@ -103,8 +103,8 @@ def main():                                                              # main 
             name,pid = i.split("--")
             sessionName,sessionId,mem_usage = b[:-2].split("--")
             Records2.append(pid)
-            with open("taskscsv.csv","a",newline="") as csvFile:
-                csv.writer(csvFile).writerow([name,pid,sessionName,sessionId,mem_usage])
+            with open("taskscsv.csv","a",newline="") as csvFile:             
+                csv.writer(csvFile).writerow([name,pid,sessionName,sessionId,mem_usage]) # transfrom data to csvfile
         print("fixing-6")
         #print(Records2)
             
